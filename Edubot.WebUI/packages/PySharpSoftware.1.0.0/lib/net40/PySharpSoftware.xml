@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PySharp</name>
+    </assembly>
+    <members>
+        <member name="T:PySharp.PyEngine">
+            <summary>
+            Represents an executing Python scripts engine.
+            </summary>
+        </member>
+        <member name="M:PySharp.PyEngine.Execute(PySharp.PyScript)">
+            <summary>
+            Executes PyScript instance.
+            </summary>
+            <param name="script">Instance of incapsulated Python script.</param>
+        </member>
+        <member name="M:PySharp.PyEngine.ExecuteFunction(PySharp.PyScript,System.String)">
+            <summary>
+            Executes function from PyScript instance.
+            </summary>
+            <param name="script">Instance of incapsulated Python script.</param>
+            <param name="function">Name of calling Python function (with no parameters).</param>
+        </member>
+        <member name="M:PySharp.PyEngine.ExecuteArgumentFunction(PySharp.PyScript,System.String,System.Object)">
+            <summary>
+            Executes function with single parameter from PyScript instance.
+            </summary>
+            <param name="script">Instance of incapsulated Python script.</param>
+            <param name="function">Name of calling Python function (accepting single boxed parameter).</param>
+            <param name="argument">Value of the function parameter.</param>
+        </member>
+        <member name="T:PySharp.PyEngineBuilder">
+            <summary>
+            PyEngine builder, allowing to pre-configure Python executing engine.
+            </summary>
+        </member>
+        <member name="M:PySharp.PyEngineBuilder.#ctor">
+            <summary>
+            Creates new PyEngineBuilder instance.
+            </summary>
+        </member>
+        <member name="M:PySharp.PyEngineBuilder.DefineAssembly(System.Reflection.Assembly)">
+            <summary>
+            Imports to Python engine new assembly with all the public types in it.
+            </summary>
+            <param name="assembly">Importing assembly.</param>
+        </member>
+        <member name="M:PySharp.PyEngineBuilder.DefineType(System.String,System.Type)">
+            <summary>
+            Imports to Python engine new public type.
+            </summary>
+            <param name="name">Python alias for .NET type name.</param>
+            <param name="type">Importing .NET type.</param>
+        </member>
+        <member name="M:PySharp.PyEngineBuilder.DefineVariable(System.String,System.Object)">
+            <summary>
+            Imports to Python engine new variable.
+            </summary>
+            <param name="name">Name of Python variable.</param>
+            <param name="value">Value of Python variable.</param>
+        </member>
+        <member name="M:PySharp.PyEngineBuilder.Build">
+            <summary>
+            Creates new Python engine using pre-defined parameters.
+            </summary>
+        </member>
+        <member name="T:PySharp.PyScriptMode">
+            <summary>
+            Python script data mode.
+            </summary>
+        </member>
+        <member name="F:PySharp.PyScriptMode.Script">
+            <summary>
+            Direct expression.
+            </summary>
+        </member>
+        <member name="F:PySharp.PyScriptMode.Path">
+            <summary>
+            Path to script file.
+            </summary>
+        </member>
+        <member name="T:PySharp.PyScript">
+            <summary>
+            Python script instance.
+            </summary>
+        </member>
+        <member name="P:PySharp.PyScript.Script">
+            <summary>
+            Python incapsulated script expression.
+            </summary>
+        </member>
+        <member name="M:PySharp.PyScript.#ctor(System.String,PySharp.PyScriptMode)">
+            <summary>
+            Creates new Python script instance.
+            </summary>
+            <param name="script">Data representing Python script.</param>
+            <param name="mode">Script data mode (direct exression or path).</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-grid.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="row mt-5">
+        <div class="col-md-2 text-right">
+            <p>Soru giriniz</p>
+        </div>
+        <div class="col-md-7">
+            <input type="text" class="form-control" id="txtSoru" />
+        </div>
+        <div class="col-md-2 text-center">
+            <button type="button" id="btnSoru" class="form-control btn btn-success">Sor</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="text-muted h3 text-center">Kosünüs benzerliğine göre cevap</p>
+        </div>
+        <div class="col-md-6">
+            <p class="text-muted h3 text-center">Yapay sinir ağına göre</p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+
+        <div class="col-md-6">
+            <textarea id="txtCosunus" class="form-control" rows="8"></textarea>
+        </div>
+        <div class="col-md-6">
+
+            <textarea id="txtANN" class="form-control" rows="8"></textarea>
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-5">
+        <div class="col-md-6">
+            <p class="text-muted h3 text-center">Öklid benzerliğine göre cevap</p>
+        </div>
+        <div class="col-md-6">
+            <p class="text-muted h3 text-center">Lstm göre</p>
+        </div>
+    </div>
+    <div class="row mt-5">
+
+        <div class="col-md-6">
+            <textarea id="txtOklid" class="form-control" rows="8"></textarea>
+        </div>
+        <div class="col-md-6">
+
+            <textarea id="txtLstm" class="form-control" rows="8"></textarea>
+        </div>
+    </div>
+    <div class="row mt-5 mb-5">
+        <div class="col-md-6">
+            <p class="text-muted h3 text-center">Naive Bayes göre cevap</p>
+        </div>
+        <div class="col-md-6">
+            <p class="text-muted h3 text-center">Rnn göre</p>
+        </div>
+    </div>
+    <div class="row mt-5">
+
+        <div class="col-md-6">
+            <textarea id="txtNaiveBayes" class="form-control" rows="8"></textarea>
+        </div>
+        <div class="col-md-6">
+
+            <textarea id="txtRnn" class="form-control" rows="8"></textarea>
+        </div>
+    </div>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/popper.min.js"></script>
+    <script>
+        function Kosunus(Soru) {
+            try {
+                var soru1 = {
+                    "soru": Soru
+                };
+                $.ajax({
+                    url: 'api/api/faq',
+                    async: true,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: JSON.stringify(soru1),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        console.log(data);
+                        if (data.Response != null) {
+                            if (data.Response == 200) {
+                                $("#txtCosunus").val(data.Cevap);
+                            }
+                            else {
+                                alert("hata " + data.Cevap);
+                                return "";
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText);
+                        console.log(thrownError);
+                        return "";
+                    }
+                });
+            } catch (e) {
+                alert(e);
+                return "";
+            }
+        }
+
+        function Rnn(Soru) {
+            try {
+                var soru1 = {
+                    "soru": Soru
+                };
+                $.ajax({
+                    url: 'api/apiRnn/faqFullRnn',
+                    async: true,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: JSON.stringify(soru1),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        console.log(data);
+                        if (data.Response != null) {
+                            if (data.Response == 200) {
+                                $("#txtRnn").val(data.Cevap);
+                            }
+                            else {
+                                alert("hata " + data.Cevap);
+                                return "";
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText);
+                        console.log(thrownError);
+                        return "";
+                    }
+                });
+            } catch (e) {
+                alert(e);
+                return "";
+            }
+        }
+
+        function ANN(Soru) {
+            try {
+                var soru1 = {
+                    "soru": Soru
+                };
+                $.ajax({
+                    url: 'api/api1/faqFullAnn',
+                    async: true,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: JSON.stringify(soru1),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        console.log(data);
+                        if (data.Response != null) {
+                            if (data.Response == 200) {
+                                $("#txtANN").val(data.Cevap);
+                            }
+                            else {
+                                alert("hata " + data.Cevap);
+                                return "";
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText);
+                        console.log(thrownError);
+                        return "";
+                    }
+                });
+            } catch (e) {
+                alert(e);
+                return "";
+            }
+        }
+
+
+        function Oklid(Soru) {
+            try {
+                var soru1 = {
+                    "soru": Soru
+                };
+                $.ajax({
+                    url: 'api/apiOklid/Oklid',
+                    async: true,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: JSON.stringify(soru1),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        console.log(data);
+                        if (data.Response != null) {
+                            if (data.Response == 200) {
+                                $("#txtOklid").val(data.Cevap);
+                            }
+                            else {
+                                alert("hata " + data.Cevap);
+                                return "";
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText);
+                        console.log(thrownError);
+                        return "";
+                    }
+                });
+            } catch (e) {
+                alert(e);
+                return "";
+            }
+        }
+
+        function Lstm(Soru) {
+            try {
+                var soru1 = {
+                    "soru": Soru
+                };
+                $.ajax({
+                    url: 'api/apilstm/Fulllstm',
+                    async: true,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: JSON.stringify(soru1),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        console.log(data);
+                        if (data.Response != null) {
+                            if (data.Response == 200) {
+                                $("#txtLstm").val(data.Cevap);
+                            }
+                            else {
+                                alert("hata " + data.Cevap);
+                                return "";
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText);
+                        console.log(thrownError);
+                        return "";
+                    }
+                });
+            } catch (e) {
+                alert(e);
+                return "";
+            }
+        }
+
+        function NaiveBayes(Soru) {
+            try {
+                var soru1 = {
+                    "soru": Soru
+                };
+                $.ajax({
+                    url: 'api/apiNaiveBayes/FullNaiveBayes',
+                    async: true,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: JSON.stringify(soru1),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        console.log(data);
+                        if (data.Response != null) {
+                            if (data.Response == 200) {
+                                $("#txtNaiveBayes").val(data.Cevap);
+                            }
+                            else {
+                                alert("hata " + data.Cevap);
+                                return "";
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText);
+                        console.log(thrownError);
+                        return "";
+                    }
+                });
+            } catch (e) {
+                alert(e);
+                return "";
+            }
+        }
+
+        $(document).ready(function () {
+            $("#btnSoru").click(function () {
+                var soru = $("#txtSoru").val();
+                if (soru.length == 0) {
+                    alert("Soru giriniz");
+                    return;
+                }
+                else {
+                    Kosunus(soru);
+                    ANN(soru);
+                    Oklid(soru);
+                    Lstm(soru);
+                    NaiveBayes(soru);
+                    Rnn(soru);
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
