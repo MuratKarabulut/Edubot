@@ -1,4 +1,4 @@
-# Edubot (Üniversite Sanal Asistan) - AcikHack2021
+# Edubot - AcikHack2021
 <hr>
 </br>
 <h1>Giriş</h1>
