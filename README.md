@@ -34,3 +34,10 @@
 
 ![alt text](https://github.com/yusufugurlu/Edubot/blob/main/image/web.png)
 
+
+<h1>Veritabanı Diyagramı</h1>
+</br>
+
+![alt text](https://github.com/yusufugurlu/Edubot/blob/main/image/Db_Diyagram.png)
+
+
